@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Shopping</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+
+        .product, #cart {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: white;
+            transition: transform 0.3s;
+            box-shadow: -17px 20px 20px 0px rgba(0,0,0,0.15); /* Added box shadow */
+        }
+
+        .product:hover, #cart:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #cart {
+            height: 400px;
+            overflow: auto;
+        }
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var product = document.getElementById(data);
+            ev.target.appendChild(product);
+            var button = product.querySelector('button');
+            product.removeChild(button);
+        }
+
+        function addToCart(id) {
+            var product = document.getElementById(id);
+            document.getElementById('cart').appendChild(product);
+            var button = product.querySelector('button');
+            product.removeChild(button);
+        }
+    </script>
+</head>
+<body>
+    <div id="product1" draggable="true" ondragstart="drag(event)" class="product">
+       Mac book pro
+        <button onclick="addToCart('product1')">Add to cart</button>
+    </div>
+    <div id="product2" draggable="true" ondragstart="drag(event)" class="product">
+       Airpod
+        <button onclick="addToCart('product2')">Add to cart</button>
+    </div>
+
+   <div id="cart" ondrop="drop(event)" ondragover="allowDrop(event)" style="font-style: regular; font-size: 18px; color: black;">
+<h5>Drop products here</h5>
+</div>
+
+</body>
+</html>
