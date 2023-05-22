@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  .card {
+    width: 400px;
+    padding: 2rem;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: black;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  label, input {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .button-right {
+    text-align: right;
+  }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <form id="step1">
+      <h4>Step 1: Enter Details</h4>
+      <label for="username">Username:</label>
+      <input type="text" id="username" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+      <div class="button-right">
+        <button type="submit">Next Step</button>
+      </div>
+    </form>
+    
+    <form id="step2" class="hidden">
+      <h4>Step 2: Confirm Details</h4>
+      <label for="confirmUsername">Username:</label>
+      <input type="text" id="confirmUsername" required readonly>
+      <label for="confirmEmail">Email:</label>
+      <input type="email" id="confirmEmail" required readonly>
+      <div class="button-right">
+        <button type="submit">Register</button>
+      </div>
+    </form>
+
+    <script>
+      document.getElementById("step1").addEventListener("submit", function(e) {
+        e.preventDefault();
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+
+        document.getElementById("confirmUsername").value = username;
+        document.getElementById("confirmEmail").value = email;
+        
+        this.classList.add("hidden");
+        document.getElementById("step2").classList.remove("hidden");
+      });
+
+      document.getElementById("step2").addEventListener("submit", function(e) {
+        e.preventDefault();
+        console.log("Registration successful!");
+      });
+    </script>
+  </div>
+</body>
+</html>
